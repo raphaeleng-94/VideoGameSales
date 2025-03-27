@@ -46,9 +46,22 @@ regiao_selecionada = st.sidebar.multiselect('Selecione a região:', regioes, def
 df_filtrado = df[df['Genre'].isin(genero_selecionado)]
 
 # =========================
+# 🔹 TOP 5 JOGOS MAIS VENDIDOS GLOBALMENTE
+# =========================
+col1 = st.columns(1)
+
+with col1:
+    st.subheader('🌍 Top 5 Jogos Mais Vendidos Globalmente')
+    top_5_global = df.nlargest(5, 'Global_Sales')[['Name', 'Global_Sales']]
+    fig = px.bar(top_5_global, x='Name', y='Global_Sales', text='Global_Sales', color='Global_Sales', color_continuous_scale='Oranges')
+    fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
+    fig.update_layout(xaxis_title='', yaxis_title='Vendas (milhões)')
+    st.plotly_chart(fig, use_container_width=True)
+
+# =========================
 # 🔹 TOP 5 JOGOS MAIS VENDIDOS POR REGIÃO
 # =========================
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 
 with col1:
     st.subheader('🏆 Top 5 Jogos Mais Vendidos na América')
@@ -59,7 +72,7 @@ with col1:
     st.plotly_chart(fig, use_container_width=True)
 
 with col2:
-    st.subheader('🌍 Top 5 Jogos Mais Vendidos na Europa')
+    st.subheader('🏆 Top 5 Jogos Mais Vendidos na Europa')
     top_5_eu = df.nlargest(5, 'EU_Sales')[['Name', 'EU_Sales']]
     fig = px.bar(top_5_eu, x='Name', y='EU_Sales', text='EU_Sales', color='EU_Sales', color_continuous_scale='Greens')
     fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
@@ -67,17 +80,9 @@ with col2:
     st.plotly_chart(fig, use_container_width=True)
 
 with col3:
-    st.subheader('🌍 Top 5 Jogos Mais Vendidos no Japão')
+    st.subheader('🏆 Top 5 Jogos Mais Vendidos no Japão')
     top_5_jp = df.nlargest(5, 'JP_Sales')[['Name', 'JP_Sales']]
     fig = px.bar(top_5_jp, x='Name', y='JP_Sales', text='JP_Sales', color='JP_Sales', color_continuous_scale='Purples')
-    fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
-    fig.update_layout(xaxis_title='', yaxis_title='Vendas (milhões)')
-    st.plotly_chart(fig, use_container_width=True)
-
-with col4:
-    st.subheader('🌍 Top 5 Jogos Mais Vendidos Globalmente')
-    top_5_global = df.nlargest(5, 'Global_Sales')[['Name', 'Global_Sales']]
-    fig = px.bar(top_5_global, x='Name', y='Global_Sales', text='Global_Sales', color='Global_Sales', color_continuous_scale='Oranges')
     fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
     fig.update_layout(xaxis_title='', yaxis_title='Vendas (milhões)')
     st.plotly_chart(fig, use_container_width=True)
@@ -141,7 +146,7 @@ st.plotly_chart(fig, use_container_width=True)
 # =========================
 # 🔹 COMPARATIVE ANALYSIS
 # =========================
-st.subheader('📊 Análise Comparativa')
+st.subheader('📊 Análises Comparativas')
 
 # Comparação de vendas por plataforma
 sales_by_platform = df_filtrado.groupby('Platform')['Global_Sales'].sum().reset_index()
