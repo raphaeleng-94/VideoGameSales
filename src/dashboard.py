@@ -48,7 +48,7 @@ df_filtrado = df[df['Genre'].isin(genero_selecionado)]
 # =========================
 # 🔹 TOP 5 JOGOS MAIS VENDIDOS POR REGIÃO
 # =========================
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.subheader('🏆 Top 5 Jogos Mais Vendidos na América')
@@ -70,6 +70,14 @@ with col3:
     st.subheader('🌍 Top 5 Jogos Mais Vendidos no Japão')
     top_5_jp = df.nlargest(5, 'JP_Sales')[['Name', 'JP_Sales']]
     fig = px.bar(top_5_jp, x='Name', y='JP_Sales', text='JP_Sales', color='JP_Sales', color_continuous_scale='Purples')
+    fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
+    fig.update_layout(xaxis_title='', yaxis_title='Vendas (milhões)')
+    st.plotly_chart(fig, use_container_width=True)
+
+with col4:
+    st.subheader('🌍 Top 5 Jogos Mais Vendidos Globalmente')
+    top_5_global = df.nlargest(5, 'Global_Sales')[['Name', 'Global_Sales']]
+    fig = px.bar(top_5_global, x='Name', y='Global_Sales', text='Global_Sales', color='Global_Sales', color_continuous_scale='Oranges')
     fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
     fig.update_layout(xaxis_title='', yaxis_title='Vendas (milhões)')
     st.plotly_chart(fig, use_container_width=True)
