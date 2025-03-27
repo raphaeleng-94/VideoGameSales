@@ -12,7 +12,6 @@ VideoGameSales/
 │   ├── data_processing.py  # Script para processamento dos dados
 │   ├── database.py         # Configuração e operações com PostgreSQL
 │   ├── dashboard.py        # Aplicação Streamlit
-│   └── prediction.py       # Modelo de previsão (futuro)
 ├── requirements.txt        # Dependências do projeto
 └── README.md              # Este arquivo
 ```
