@@ -61,7 +61,7 @@ pip install -r requirements.txt
 
 3. Configure o banco de dados PostgreSQL:
 - Crie um banco de dados
-- Configure as credenciais em `src/database.py`
+- Configure as credenciais no .env
 
 ## Uso
 
@@ -70,12 +70,7 @@ pip install -r requirements.txt
 python src/data_processing.py
 ```
 
-2. Inicializar o banco de dados:
-```bash
-python src/database.py
-```
-
-3. Executar o dashboard:
+2. Executar o dashboard:
 ```bash
 streamlit run src/dashboard.py
 ```
