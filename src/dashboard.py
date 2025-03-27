@@ -118,6 +118,49 @@ fig.update_layout(xaxis_title='Ano', yaxis_title='Vendas (milhões)')
 st.plotly_chart(fig, use_container_width=True)
 
 # =========================
+# 🔹 BUSINESS STRATEGY & GAME DEVELOPMENT
+# =========================
+st.subheader('🎯 Estratégia de Negócio e Desenvolvimento de Jogos')
+
+# Gênero de jogos mais vendido por região
+sales_by_genre_region = df_filtrado.groupby(['Genre'])[regioes].sum().reset_index()
+fig = px.bar(sales_by_genre_region, x='Genre', y=regiao_selecionada, barmode='group',
+             color_discrete_sequence=px.colors.qualitative.Set1)
+fig.update_layout(xaxis_title='Gênero', yaxis_title='Vendas (milhões)')
+st.plotly_chart(fig, use_container_width=True)
+
+# Regiões com maior demanda
+total_sales_region = df_filtrado[regioes].sum().reset_index()
+total_sales_region.columns = ['Região', 'Vendas']
+
+fig = px.bar(total_sales_region, x='Região', y='Vendas', color='Vendas',
+             color_continuous_scale='Viridis')
+fig.update_layout(xaxis_title='Região', yaxis_title='Vendas (milhões)')
+st.plotly_chart(fig, use_container_width=True)
+
+# =========================
+# 🔹 COMPARATIVE ANALYSIS
+# =========================
+st.subheader('📊 Análise Comparativa')
+
+# Comparação de vendas por plataforma
+sales_by_platform = df_filtrado.groupby('Platform')['Global_Sales'].sum().reset_index()
+fig = px.bar(sales_by_platform, x='Platform', y='Global_Sales', color='Global_Sales',
+             color_continuous_scale='Cividis')
+fig.update_traces(texttemplate='%{y:.2f}', textposition='outside')
+fig.update_layout(xaxis_title='Plataforma', yaxis_title='Vendas Globais (milhões)')
+st.plotly_chart(fig, use_container_width=True)
+
+# Comparação de desempenho de diferentes publishers
+sales_by_publisher = df_filtrado.groupby('Publisher')['Global_Sales'].sum().reset_index()
+top_publishers = sales_by_publisher.nlargest(10, 'Global_Sales')  # Top 10 publishers
+fig = px.bar(top_publishers, x='Publisher', y='Global_Sales', color='Global_Sales',
+             color_continuous_scale='Inferno')
+fig.update_traces(texttemplate='%{y:.2f}', textposition='outside')
+fig.update_layout(xaxis_title='Publisher', yaxis_title='Vendas Globais (milhões)')
+st.plotly_chart(fig, use_container_width=True)
+
+# =========================
 # 🔹 PREVISÃO DE VENDAS COM XGBOOST
 # =========================
 st.subheader('📈 Previsão de Vendas Futuras')
