@@ -48,7 +48,9 @@ df_filtrado = df[df['Genre'].isin(genero_selecionado)]
 # =========================
 # 🔹 TOP 5 JOGOS MAIS VENDIDOS GLOBALMENTE
 # =========================
-col1 = st.columns(1)
+columns = st.columns(1)
+col1= columns[0]
+print(type(col1))  # Deve exibir <class 'streamlit.delta_generator.DeltaGenerator'>
 
 with col1:
     st.subheader('🌍 Top 5 Jogos Mais Vendidos Globalmente')
@@ -61,7 +63,13 @@ with col1:
 # =========================
 # 🔹 TOP 5 JOGOS MAIS VENDIDOS POR REGIÃO
 # =========================
-col1, col2, col3 = st.columns(3)
+#col1, col2, col3 = st.columns(3)
+columns = st.columns(3)
+col1, col2, col3 = columns[0], columns[1], columns[2]
+
+print(type(col1))  # Deve exibir <class 'streamlit.delta_generator.DeltaGenerator'>
+print(type(col2))  # Deve exibir <class 'streamlit.delta_generator.DeltaGenerator'>
+print(type(col3))  # Deve exibir <class 'streamlit.delta_generator.DeltaGenerator'>
 
 with col1:
     st.subheader('🏆 Top 5 Jogos Mais Vendidos na América')
